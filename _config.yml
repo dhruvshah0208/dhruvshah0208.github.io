@@ -14,8 +14,8 @@ markdown: kramdown
 
 
 ### content configuration ###
-title:       "SinglePaged - Title: Edit me in _config.yml!"
-keywords:    "SinglePaged, jekyll, template, github, blog, single page"
+title:       "Mahadevan Subramanian"
+keywords:    "Mahadevan Subramanian, IIT Bombay, SinglePaged, jekyll, github, single page"
 description: "A single-page template for Jekyll based blogs (like what you'd use on github pages!)"
 source_link: "https://github.com/t413/SinglePaged"
 favicon:     #put a path like: "img/favicon.ico"
@@ -25,13 +25,13 @@ google_analytics_key: ## put YOUR key here to enable tracking! (blank to disable
 
 ### template colors, used site-wide via css ###
 colors:
-  black:     '#111111'
-  white:     '#f8f8f8'
-  blue:      '#49a7e9'
-  green:     '#9bcf2f'
-  purple:    '#c869bf'
-  orange:    '#fab125'
-  turquoise: '#0fbfcf'
+  black:     '#f6f9fB' #Changed to a white shade for dark mode
+  white:     '#111111' #Changed to a black shade for dark mode
+  blue:      '#459fae' #Changed to a duller shade of blue
+  green:     '#28a442' #Changed to a nicer green
+  purple:    '#6b0761' #Changed to a darker purple shade
+  orange:    '#a93838' #Changed to maroonish shade
+  turquoise: '#17946f' #Changed to a darker greener shade
 
 kramdown:
   auto_ids:  false
