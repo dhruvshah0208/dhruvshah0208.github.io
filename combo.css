@@ -4,3 +4,6 @@
 {% include css/base.css %}
 {% include css/skeleton.css %}
 {% include css/main.css %}
+#projects .sectiondivider {
+    color: #566167;
+}
