@@ -227,13 +227,11 @@ nav ul li:hover, nav ul li.active {
   font-size:15px;
   font-weight:700;
   text-transform:uppercase;
-  position:absolute;
   bottom:50px;
   left:auto;
   text-align:center;
   display:block;
   z-index:6;
-  width:240px;
 }
 
 .sectiondivider.imaged {
