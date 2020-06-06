@@ -49,7 +49,7 @@ body {
 
 .custom-column-header {
   font-size: 24px;
-  background-color: black;  
+  background-color:#566167; 
   color: white;
   padding: 15px;  
   text-align: center;
@@ -66,8 +66,7 @@ body {
   padding-top: 20px;
   text-align: center;
 }
-.logo {
-  padding: 20px;
+.fa {
   font-size: 30px;
   width: 30px;
   text-align: center;
@@ -76,15 +75,15 @@ body {
   border-radius: 50%;
 }
 
-.logo:hover {
+.fa:hover {
     opacity: 0.7;
 }
 
-.logo-facebook {
+.fa-facebook {
   background: #3B5998;
   color: white;
 }
-.logo-linkedin {
+.fa-linkedin {
   background: #007bb5;
   color: white;
 }
