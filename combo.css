@@ -7,3 +7,6 @@
 #projects .sectiondivider {
     color: #566167;
 }
+.sectiondivider h5 {
+  color: white;
+}
