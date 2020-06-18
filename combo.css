@@ -86,3 +86,9 @@ body {
   background: #007bb5;
   color: white;
 }
+.myimg{
+  width:234px;
+  height:234px;
+  object-fit:cover;
+  border-radius:50%;
+}
