@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
@@ -12,22 +14,16 @@
   {% if site.favicon %}<link rel="shortcut icon" href="{{ site.favicon }}" type="image/x-icon">{% endif %}
 	{% if site.touch_icon %}<link rel="apple-touch-icon" href="{{ site.touch_icon }}">{% endif %}
 
-.myimg{
-  width:234px;
-  height:234px;
-  object-fit:cover;
-  border-radius:50%;
-}
 <style>
 body {
-  background-image: url(https://raw.githubusercontent.com/mahadevans2432/mahadevans2432.github.io/master/img/better%20background.png);
+  background-image: url(https://raw.githubusercontent.com/mahadevans2432/mahadevans2432.github.io/master/img/dark%20background.png);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
 </style>
-</head>
 
+</head>
 <body>
   <div id="main">
 
@@ -37,21 +33,30 @@ body {
         <li class="p-{{id}}"><a href="#{{id}}">{{node.title}}</a></li>
       {% endfor %}
     </ul></nav>
-	  
-	   {% for page in site.posts reversed %}
+
+
+    {% for page in site.courses reversed %}
       {% capture id %}{{ page.id | remove:'/' | downcase }}{% endcapture %}
       <div id="{{id}}" class="section p-{{id}}">
+        {% if page.icon %}
+        <div class="subtlecircle sectiondivider imaged">
+          <img src="{{page.icon}}" alt="section icon" />
+          <h5 class="icon-title">{{ page.title }}</h5>
+        </div>
+        {% elsif page.fa-icon %}
+        <div class="subtlecircle sectiondivider faicon">
+          <span class="fa-stack">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-{{ page.fa-icon }} fa-stack-1x"></i>
+          </span>
+          <h5 class="icon-title">{{ page.title }}</h5>
+        </div>
+        {% endif %}
+        <div class="container {{ page.style }}">
+          {{ page.content }}
+        </div>
       </div>
     {% endfor %}
-
-    
-    <h1>List of courses I have taken and am taking</h1>
-	  <h2>Department of Mathematics</h2>
-	  <h2>Department of Physics</h2>
-	  <h2>Department of Chemistry</h2>
-	  <h2>Department of Electrical</h2>
-	  <h2>Department of Mechanical</h2>
-	  <h2>Department of Biosciences</h2>
 
 
     <div id="footer" class="section text-white">
@@ -61,6 +66,8 @@ body {
       </div>
     </div>
   </div>
+
+{% include analytics.html %}
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="site.js"></script>
