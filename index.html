@@ -8,6 +8,7 @@
   <title>{{ site.title }}</title>
 	<meta name="keywords" content="{{ site.keywords }}">
 	<meta name="description" content="{{ site.description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="combo.css">
   <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -41,8 +42,8 @@ body {
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
-/*  color: white;
-  display: none;*/
+/*  color: white;*/
+  display: none;
   padding: 100px 20px;
   height: 100%;
 }
@@ -80,7 +81,7 @@ body {
       
     </ul></nav> -->
 
-    <button class="tablink" onclick="openPage('intro', this)">Home</button>
+    <button class="tablink" onclick="openPage('intro', this)" id="defaultOpen">Home</button>
     <button class="tablink" onclick="openPage('about-me', this)">About Me</button>
     <button class="tablink" onclick="openPage('projects', this)">My Projects</button>
     <button class="tablink" onclick="openPage('contact-me', this)">Contact Me</button>
