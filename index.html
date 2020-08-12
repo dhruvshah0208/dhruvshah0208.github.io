@@ -27,15 +27,22 @@ body {
 <body>
   <div id="main">
 
+    <!--
     <nav><ul>
       {% for node in site.posts reversed %}
         {% capture id %}{{ node.id | remove:'/' | downcase }}{% endcapture %}
         <li class="p-{{id}}"><a href="#{{id}}">{{node.title}}</a></li>
       {% endfor %}
     </ul></nav>
+-->
+    <button class="tablink" onclick="openPage('intro', this, 'red')">Home</button>
+    <button class="tablink" onclick="openPage('about-me', this, 'green')">About Me</button>
+    <button class="tablink" onclick="openPage('projects', this, 'blue')">My Projects</button>
+    <button class="tablink" onclick="openPage('contact-me', this, 'orange')">Contact Me</button>
 
 
-    {% for page in site.posts reversed %}
+
+    <!-- {% for page in site.posts reversed %}
       {% capture id %}{{ page.id | remove:'/' | downcase }}{% endcapture %}
       <div id="{{id}}" class="section p-{{id}}">
         {% if page.icon %}
@@ -56,7 +63,125 @@ body {
           {{ page.content }}
         </div>
       </div>
-    {% endfor %}
+    {% endfor %} -->
+
+
+      <div id="intro" class="section p-intro">
+        
+        <div class="container center">
+          <p><span class="fa-stack subtlecircle" style="font-size:117px; background:rgba(0,0,0,0.1)">
+  <img src="./Mahadevan Subramanian_files/circle-cropped.png" class="myimg">
+</span></p>
+<h1 class="text-white"><em>Hello There</em></h1>
+
+<h1>Welcome to my Homepage :)</h1>
+<p class="text-white">My name is Mahadevan Subramanian, I am an Engineering Physics undergrad at IIT Bombay.</p>
+
+
+        </div>
+      </div>
+    
+      
+      <div id="about-me" class="section p-about-me">
+        
+        <div class="subtlecircle sectiondivider faicon">
+          <span class="fa-stack">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-user fa-stack-1x"></i>
+          </span>
+          <h5 class="icon-title">About me</h5>
+        </div>
+        
+        <div class="container ">
+          <p>I am currently a first year undergraduate at IIT Bombay doing a B.Tech in Engineering Physics.
+My main interests are Quantum Information and Computing and Quantum Measurement Theory.
+You can find the list of the courses I have taken and am taking <a href="https://mahadevans2432.github.io/courses.html">here</a>.
+I am a math and physics enthusiast and am currently working as a convener in the <a href="http://mnp-club.github.io/">Math and Physics Club, IIT Bombay</a>
+I also love music and play the keyboard and also produce music using FL Studio 20 as my DAW. You can find my creations <a href="https://soundcloud.com/dfr-music">here</a>.</p>
+
+        </div>
+      </div>
+    
+      
+      <div id="projects" class="section p-projects">
+        
+        <div class="subtlecircle sectiondivider faicon">
+          <span class="fa-stack">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-pencil fa-stack-1x"></i>
+          </span>
+          <h5 class="icon-title">My Projects</h5>
+        </div>
+        
+        <div class="container ">
+          <div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-4">
+      <div class="custom-column">
+        <div class="custom-column-header">Quantum Information and Computing, Summer of Science</div>
+        <div class="custom-column-content">
+          <p>This was the subject I took for the Summer of Science 2020 initiative of the MnP Club IIT Bombay. You can find my report <a href="https://github.com/mahadevans2432/Quantum-Information-and-Computing-SoS-2020">here</a>. I also took part in the IBM Quantum Challenge and got to learn how to use qiskit and was able to complete the challenge. You can find my repository for it <a href="https://github.com/mahadevans2432/IBM-Quantum-Challenge">here</a>.
+    </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <div class="custom-column">        
+        <div class="custom-column-header">Literature review of measurement theory in quantum mechanics</div>
+        <div class="custom-column-content">
+          <p>This is an ongoing project which I am doing under <a href="http://ether.chem.iitb.ac.in/people/Faculty/prof/ajain.html">Prof. Amber Jain</a> as the Summer Undergraduate Research Project. We are currently reading literature concerning different interpretations of quantum mechanics including Bohmian Mechanics and the Many Worlds Interpretation and objective collapse theories and also some interesting gedanken experiments which propose breaking points of these interpretations.
+    </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <div class="custom-column">
+        <div class="custom-column-header">Neural Network for identifying diseases in apple leaves</div>
+        <div class="custom-column-content">
+          <p>This is a project for the Institute Technical Summer Project in which our team has built a tensorflow model which would look at a dataset of images of the leaves of apple trees. The model is built using transfer learning and we also used image augmentation. This was actually part of a <a href="https://www.kaggle.com/c/plant-pathology-2020-fgvc7/overview">kaggle competition</a> and we obtained our data from there. The teams repository is available <a href="https://github.com/Leaf-Scrutiny-Department">here</a> and this is the <a href="https://leafscrutinydepartment-test.herokuapp.com/">website of the project</a>.
+    </p>
+  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        </div>
+      </div>
+    
+      
+      <div id="contact-me" class="section p-contact-me">
+        
+        <div class="subtlecircle sectiondivider faicon">
+          <span class="fa-stack">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-send fa-stack-1x"></i>
+          </span>
+          <h5 class="icon-title">Contact me</h5>
+        </div>
+        
+        <div class="container ">
+          <p><a href="https://www.facebook.com/profile.php?id=100010435631844" class="fa fa-facebook"></a>
+<a href="https://www.linkedin.com/in/mahadevan-subramanian-a3b4291a8/" class="fa fa-linkedin"></a>
+My email address is <a href="https://mahadevans2432.github.io/mahadevan.subramanian2432@gmail.com">mahadevan.subramanian2432@gmail.com</a> and <a href="https://mahadevans2432.github.io/190260027@iitb.ac.in">190260027@iitb.ac.in</a></p>
+
+        </div>
+      </div>
+    
+
+
+    <div id="footer" class="section text-white">
+      <div class="container">
+        
+        
+<p>Design forked from Tim O’Brien <a href="http://t413.com/">t413.com</a>
+—
+<a href="https://github.com/t413/SinglePaged">SinglePaged theme</a></p>
+
+
+      </div>
+    </div>
+  </div>
 
 
     <div id="footer" class="section text-white">
@@ -66,6 +191,26 @@ body {
       </div>
     </div>
   </div>
+
+<script>
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+
 
 {% include analytics.html %}
 </body>
