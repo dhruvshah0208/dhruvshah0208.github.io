@@ -21,6 +21,32 @@ body {
   background-attachment: fixed;
   background-size: cover;
 }
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
 </style>
 
 </head>
@@ -35,10 +61,29 @@ body {
       {% endfor %}
     </ul></nav>
 -->
-    <button class="tablink" onclick="openPage('intro', this, 'red')">Home</button>
-    <button class="tablink" onclick="openPage('about-me', this, 'green')">About Me</button>
-    <button class="tablink" onclick="openPage('projects', this, 'blue')">My Projects</button>
-    <button class="tablink" onclick="openPage('contact-me', this, 'orange')">Contact Me</button>
+
+
+
+    <!-- <nav><ul>
+      
+        
+        <li class="p-intro active"><a href="https://mahadevans2432.github.io/#intro">home</a></li>
+      
+        
+        <li class="p-about-me"><a href="https://mahadevans2432.github.io/#about-me">About me</a></li>
+      
+        
+        <li class="p-projects"><a href="https://mahadevans2432.github.io/#projects">My Projects</a></li>
+      
+        
+        <li class="p-contact-me"><a href="https://mahadevans2432.github.io/#contact-me">Contact me</a></li>
+      
+    </ul></nav> -->
+
+    <button class="tablink" onclick="openPage('intro', this)">Home</button>
+    <button class="tablink" onclick="openPage('about-me', this)">About Me</button>
+    <button class="tablink" onclick="openPage('projects', this)">My Projects</button>
+    <button class="tablink" onclick="openPage('contact-me', this)">Contact Me</button>
 
 
 
@@ -70,7 +115,7 @@ body {
         
         <div class="container center">
           <p><span class="fa-stack subtlecircle" style="font-size:117px; background:rgba(0,0,0,0.1)">
-  <img src="./Mahadevan Subramanian_files/circle-cropped.png" class="myimg">
+  <img src="https://raw.githubusercontent.com/mahadevans2432/mahadevans2432.github.io/master/img/circle-cropped.png" class="myimg">
 </span></p>
 <h1 class="text-white"><em>Hello There</em></h1>
 
@@ -167,21 +212,6 @@ My email address is <a href="https://mahadevans2432.github.io/mahadevan.subraman
 
         </div>
       </div>
-    
-
-
-    <div id="footer" class="section text-white">
-      <div class="container">
-        
-        
-<p>Design forked from Tim O’Brien <a href="http://t413.com/">t413.com</a>
-—
-<a href="https://github.com/t413/SinglePaged">SinglePaged theme</a></p>
-
-
-      </div>
-    </div>
-  </div>
 
 
     <div id="footer" class="section text-white">
