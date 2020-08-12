@@ -54,37 +54,26 @@ body {
 <body>
   <div id="main">
 
-    <!--
+
+
     <nav><ul>
-      {% for node in site.posts reversed %}
-        {% capture id %}{{ node.id | remove:'/' | downcase }}{% endcapture %}
-        <li class="p-{{id}}"><a href="#{{id}}">{{node.title}}</a></li>
-      {% endfor %}
+      
+        <li class="p-intro active"><a href="https://mahadevans2432.github.io">home</a></li>
+        
+        <li class="p-about-me"><a href="https://mahadevans2432.github.io/about-me.html">About me</a></li>
+        
+        <li class="p-projects"><a href="https://mahadevans2432.github.io/projects.html">My Projects</a></li>
+        
+        <li class="p-contact-me"><a href="https://mahadevans2432.github.io/contact-me.html">Contact me</a></li>
+
+        <li class="p-projects"><a href="https://mahadevans2432.github.io/misc.html">Miscallaneous</a></li>
+      
     </ul></nav>
--->
 
-
-
-    <!-- <nav><ul>
-      
-        
-        <li class="p-intro active"><a href="https://mahadevans2432.github.io/#intro">home</a></li>
-      
-        
-        <li class="p-about-me"><a href="https://mahadevans2432.github.io/#about-me">About me</a></li>
-      
-        
-        <li class="p-projects"><a href="https://mahadevans2432.github.io/#projects">My Projects</a></li>
-      
-        
-        <li class="p-contact-me"><a href="https://mahadevans2432.github.io/#contact-me">Contact me</a></li>
-      
-    </ul></nav> -->
-
-    <button class="tablink" onclick="openPage('intro', this)" id="defaultOpen">Home</button>
+    <!-- <button class="tablink" onclick="openPage('intro', this)" id="defaultOpen">Home</button>
     <button class="tablink" onclick="openPage('about-me', this)">About Me</button>
     <button class="tablink" onclick="openPage('projects', this)">My Projects</button>
-    <button class="tablink" onclick="openPage('contact-me', this)">Contact Me</button>
+    <button class="tablink" onclick="openPage('contact-me', this)">Contact Me</button> -->
 
 
 
@@ -223,7 +212,7 @@ My email address is <a href="https://mahadevans2432.github.io/mahadevan.subraman
     </div>
   </div>
 
-<script>
+<!-- <script>
 function openPage(pageName,elmnt,color) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -240,7 +229,7 @@ function openPage(pageName,elmnt,color) {
 
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
-</script>
+</script> -->
 
 
 {% include analytics.html %}
