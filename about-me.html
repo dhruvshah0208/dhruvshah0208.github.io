@@ -19,30 +19,7 @@ body {
   background-size: cover;
 }
 
-/* Style tab links */
-.tablink {
-  background-color: #555;
-  color: white;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 25%;
-}
 
-.tablink:hover {
-  background-color: #777;
-}
-
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-/*  color: white;*/
-  display: none;
-  padding: 100px 20px;
-  height: 100%;
-}
 
 </style>
 
@@ -50,14 +27,6 @@ body {
 <body>
   <div id="main">
 
-    <!--
-    <nav><ul>
-      {% for node in site.posts reversed %}
-        {% capture id %}{{ node.id | remove:'/' | downcase }}{% endcapture %}
-        <li class="p-{{id}}"><a href="#{{id}}">{{node.title}}</a></li>
-      {% endfor %}
-    </ul></nav>
--->
 
 
 
@@ -75,22 +44,8 @@ body {
       
     </ul></nav>
 
-
-      <div id="intro" class="section p-intro">
-        
-        <div class="container center">
-          <h1 class="text-white">About Me</h1>
-          <p>I am currently a first year undergraduate at IIT Bombay doing a B.Tech in Engineering Physics.
-My main interests are Quantum Information and Computing and Quantum Measurement Theory.
-You can find the list of the courses I have taken and am taking <a href="https://mahadevans2432.github.io/courses.html">here</a>.
-I am a math and physics enthusiast and am currently working as a convener in the <a href="http://mnp-club.github.io/">Math and Physics Club, IIT Bombay</a>
-I also love music and play the keyboard and also produce music using FL Studio 20 as my DAW. You can find my creations <a href="https://soundcloud.com/dfr-music">here</a>.</p>
-
-
-        </div>
-      </div>
       
-      <!--<div id="about-me" class="section p-about-me">
+      <div id="about-me" class="section p-about-me">
         
         <div class="subtlecircle sectiondivider faicon">
           <span class="fa-stack">
@@ -110,7 +65,7 @@ I am a math and physics enthusiast and am currently working as a convener in the
 I also love music and play the keyboard and also produce music using FL Studio 20 as my DAW. You can find my creations <a href="https://soundcloud.com/dfr-music">here</a>.</p>
 
         </div>
-      </div> -->
+      </div>
 
 
 
@@ -127,27 +82,7 @@ I also love music and play the keyboard and also produce music using FL Studio 2
     </div>
   </div>
 
-<!-- <script>
-function openPage(pageName,elmnt,color) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].style.backgroundColor = "";
-  }
-  document.getElementById(pageName).style.display = "block";
-  elmnt.style.backgroundColor = color;
-}
 
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
-</script> -->
-
-
-{% include analytics.html %}
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="site.js"></script>
