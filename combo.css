@@ -11200,7 +11200,6 @@ body {
 .custom-column-content {
   background-color: $col-content-bg-color;
   border: 2px solid white;  
-  padding: 20px;  
 }
 
 .custom-column-footer {
