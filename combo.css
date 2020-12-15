@@ -10796,7 +10796,6 @@ html { box-sizing: border-box; }
   
   nav .p-projects { border-color: ; }
   #projects { background-color:  !important; color: #f8f8f8; }
-  #projects a { color: #f8f8f8; }
   #projects .sectiondivider { color: ; }
 
   
@@ -11479,8 +11478,4 @@ body {
     justify-content: center;
     padding: 0;
     border-radius: 100%;
-}
-
-.links{
-  color: #007bff;
 }
