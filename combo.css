@@ -11208,26 +11208,7 @@ body {
   padding-top: 20px;
   text-align: center;
 }
-.fa {
-  font-size: 30px;
-  width: 30px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 50%;
-}
 
-.fa:hover {
-    opacity: 0.7;
-}
-
-.fa-facebook {
-  background: #3B5998;
-  color: white;
-}
-.fa-linkedin {
-  background: #007bb5;
-  color: white;
-}
 .myimg{
   width:234px;
   height:234px;
@@ -11434,55 +11415,58 @@ body {
     margin-right: 5px;
 }
 
-/*----------------------
------ Footer Styles ----
-------------------------*/
 
-#main-footer {
-    background: #fff;
+/********************************8*/
+
+#main-footer{
+  background: #000;
+  width: 100%;
+  margin: 0 auto;
 }
 
-#main-footer p a {
-    padding-bottom: 40px;
-    font-size: 25px;
-    text-decoration: none;
+.center-footer{
+  display: table;
+  width: 100%;
+  height: 100vh;
 }
 
-#main-footer p {
-    text-align: center; 
+#social-test {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 30px;
+  h2 {
+    color: #fff;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-weight: 100;
+  }
+  .social {
+    padding-left: 0px;
+  }
+  li {
+    color: rgba(167, 146, 129, 0.6);
+    list-style-type: none;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    padding: 1%;
+    border: 1px solid rgba(167, 146, 129, 0.4);
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    transition: ease .3s;
+    &:hover {
+      color: rgba(167, 146, 129, 1);
+      border: 1px solid rgba(167, 146, 129, 1);
+    }
+  }
 }
 
-.social-links {
-    list-style:none;
-    margin:0;
-    padding:0;
-    margin-bottom:30px;
+.social:hover > li {
+  opacity: 0.5;
 }
 
-.social-links li{
-    display:inline-block;
-    margin:0 5px;
-    border-radius:3px;
-    box-shadow:0 4px 0 transparent;
-    -webkit-transition:all .3s ease-out;
-    transition:all .3s ease-out;
-}
-
-.social-links li a {
-    display:block;
-    color:#fff;
-    font-size:21px;
-    width:50px;
-    height:50px;
-    line-height:50px;
-    text-align:center;
-    background:#509B9E;
-    border-radius:50%;
-    -webkit-transition:all .3s ease-out;
-    transition:all .3s ease-out;
-}
-
-.social-links li a:hover {
-    color:#fff;
-    background:#f9398c;
+.social:hover > li:hover {
+  opacity: 1;
 }
