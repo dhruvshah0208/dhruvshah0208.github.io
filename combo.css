@@ -10752,7 +10752,6 @@ html { box-sizing: border-box; }
 
 .border-white { border-color: #f8f8f8 !important; }
 .text-white   { color: #f8f8f8; }
-.text-white a { color: #f8f8f8; }
 .bg-white     { background-color: #f8f8f8 !important; }
 
 .border-blue { border-color: #5c8bbc !important; }
@@ -10811,7 +10810,6 @@ html { box-sizing: border-box; }
   
   nav .p-intro { border-color: ; }
   #intro { background-color:  !important; color: #f8f8f8; }
-  #intro a { color: #f8f8f8; }
   #intro .sectiondivider { color: ; }
 
 
