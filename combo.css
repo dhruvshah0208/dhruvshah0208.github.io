@@ -10793,9 +10793,14 @@ html { box-sizing: border-box; }
   
   
   
-  nav .p-projects { border-color: ; }
+  nav .p-projects { border-color: #566167; }
   #projects { background-color:  !important; color: #f8f8f8; }
   #projects .sectiondivider { color: ; }
+
+
+  nav .p-acads { border-color: #ef913f; }
+  #acads { background-color:  !important; color: #f8f8f8; }
+  #acads .sectiondivider { color: ; }
 
   
   
