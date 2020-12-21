@@ -10787,7 +10787,6 @@ html { box-sizing: border-box; }
   
   nav .p-contact-me { border-color: /*#43a44c*/; }
   #contact-me { background-color:/* #43a44c */!important; color: #f8f8f8; }
-  #contact-me a { color: #f8f8f8; }
   #contact-me .sectiondivider { color: #43a44c; }
 
   
@@ -11185,8 +11184,8 @@ body {
 
 .custom-column {  
   background-color: #566167;
-  border: 5px solid #566167;    
-  padding: 10px;
+  border: 2px solid #566167;    
+  padding: 5px;
   box-sizing: border-box;  
 }
 
