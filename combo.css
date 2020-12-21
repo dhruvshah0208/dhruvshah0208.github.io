@@ -10798,8 +10798,8 @@ html { box-sizing: border-box; }
   #projects .sectiondivider { color: ; }
 
 
-  nav .p-acads { border-color: #ef913f; }
-  #acads { background-color: #8c807a !important; color: #f8f8f8; }
+  nav .p-acads { border-color: #da7a4b; }
+  #acads { background-color: !important; color: #f8f8f8; }
   #acads .sectiondivider { color: ; }
 
   
@@ -10861,7 +10861,7 @@ hr {
 .center { text-align: center; }
 .left, .container .left { text-align: left; }
 
-.container h1, .container h2, .container h4 {
+.container h1, .container h4 {
   margin-bottom: 20px;
   text-align: center;
   padding: 0 4%;
