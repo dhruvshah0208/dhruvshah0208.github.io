@@ -10861,7 +10861,7 @@ hr {
 .center { text-align: center; }
 .left, .container .left { text-align: left; }
 
-.container h1, .container h2, .container h3, .container h4 {
+.container h1, .container h2, .container h4 {
   margin-bottom: 20px;
   text-align: center;
   padding: 0 4%;
