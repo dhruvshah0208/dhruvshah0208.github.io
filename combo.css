@@ -11185,8 +11185,8 @@ body {
 }
 
 .custom-column {  
-  background-color: $col-bg-color;
-  border: 5px solid $col-bg-color;    
+  background-color: #566167;
+  border: 5px solid #566167;    
   padding: 10px;
   box-sizing: border-box;  
 }
@@ -11200,8 +11200,7 @@ body {
 }
 
 .custom-column-content {
-  background-color: $col-content-bg-color;
-  border: 2px solid white;  
+  background-color: $col-content-bg-color;  
 }
 
 .custom-column-footer {
