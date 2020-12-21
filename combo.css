@@ -10785,28 +10785,28 @@ html { box-sizing: border-box; }
   
   
   
-  nav .p-contact-me { border-color: #43a44c; }
-  #contact-me { background-color: #43a44c !important; color: #f8f8f8; }
+  nav .p-contact-me { border-color: /*#43a44c*/; }
+  #contact-me { background-color:/* #43a44c */!important; color: #f8f8f8; }
   #contact-me a { color: #f8f8f8; }
   #contact-me .sectiondivider { color: #43a44c; }
 
   
   
   
-  nav .p-projects { border-color: #652e2e; }
+  nav .p-projects { border-color: /*#652e2e*/; }
   #projects { background-color:  !important; color: #f8f8f8; }
   #projects .sectiondivider { color: ; }
 
 
-  nav .p-acads { border-color: #da7a4b; }
+  nav .p-acads { border-color: /*#da7a4b*/; }
   #acads { background-color: !important; color: #f8f8f8; }
   #acads .sectiondivider { color: ; }
 
   
   
   
-  nav .p-about-me { border-color: #5c8bbc; }
-  #about-me { background-color: #5c8bbc !important; color: #f8f8f8; }
+  nav .p-about-me { border-color: /*#5c8bbc*/; }
+  #about-me { background-color: /*#5c8bbc*/ !important; color: #f8f8f8; }
   #about-me a { color: #6fec6b; }
   #about-me .sectiondivider { color: #5c8bbc; }
 
