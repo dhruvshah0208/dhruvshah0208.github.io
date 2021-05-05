@@ -4751,7 +4751,7 @@ input[type="button"].btn-block {
   /*background-color: #fff;*/
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: inherit;
+  border-radius: 20px;
 }
 
 .card > hr {
@@ -11202,7 +11202,7 @@ body {
 
 .custom-column-content {
   background-color: $col-content-bg-color;
-  border-radius: inherit;  
+  border-radius: 20px; 
 }
 
 .custom-column-footer {
