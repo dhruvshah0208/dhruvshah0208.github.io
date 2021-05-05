@@ -11484,3 +11484,7 @@ body {
     padding: 0;
     border-radius: 100%;
 }
+
+.newimg{
+  float: left;
+}
