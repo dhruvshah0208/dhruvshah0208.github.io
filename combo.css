@@ -11485,6 +11485,6 @@ body {
     border-radius: 100%;
 }
 
-.newimg{
-  float: left;
+.left-align{
+  text-align: left;
 }
