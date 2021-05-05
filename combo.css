@@ -11187,6 +11187,7 @@ body {
   background-color: #566167;
   border: 2px solid #566167;    
   padding: 5px;
+  border-radius: 10px;
   box-sizing: border-box;  
 }
 
