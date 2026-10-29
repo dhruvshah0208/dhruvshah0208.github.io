@@ -1,2 +1,6 @@
 _site/
 .DS_Store
+
+# Private working material: never publish
+files/KFM-paper/
+files/Slides-final.pptx

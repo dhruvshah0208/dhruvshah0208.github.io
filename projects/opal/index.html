@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Dhruv Shah">
+    <meta name="description" content="OPAL: learning omega-limit partitions from approximate Koopman invariants, with one Koopman model per region.">
+    <meta property="og:title" content="Learning Omega-Limit Partitions from Approximate Koopman Invariants">
+    <meta property="og:description" content="Split the state space by long-term behavior, then learn one Koopman model per region.">
+    <meta property="og:image" content="figures/duffing_rollout_phase_portrait.png">
+    <title>OPAL: Omega-Limit Partitions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../stylesheet.css">
+</head>
+<body>
+
+    <div class="content main">
+
+        <a class="back-link" href="../../">&larr; Dhruv Shah</a>
+
+        <!-- ============================================================ title -->
+        <div class="project-header">
+            <h1>Learning Omega-Limit Partitions<br>from Approximate Koopman Invariants</h1>
+            <div class="project-authors">
+                <a href="../../">Dhruv Shah</a>, <a href="https://carmenere.ucsd.edu/jorge/">Jorge Cort&eacute;s</a>
+            </div>
+            <div class="project-affiliation">UC San Diego &middot; American Control Conference (ACC), 2027 (submitted)</div>
+            <a class="btn todo" href="#">Paper</a> /
+            <a class="btn todo" href="#">arXiv</a> /
+            <a class="btn" href="https://github.com/dhruvshah0208/OPAL-Koopman">Code</a> /
+            <a class="btn" href="#bibtex">BibTeX</a>
+        </div>
+
+        <!-- ============================================================ teaser -->
+        <div class="figure">
+            <div class="figure-row">
+                <img src="figures/duffing_rollout_phase_portrait.png" alt="Damped Duffing oscillator: OPAL partition with true, vanilla EDMD and regional EDMD rollouts">
+                <img src="figures/bistable_oscillations_rollout_phase_portrait.png" alt="Bistable oscillations: OPAL partition with true, vanilla EDMD and regional EDMD rollouts">
+            </div>
+            <div class="caption"><strong>One Koopman model per region tracks long-horizon behavior that a single global model misses.</strong> Left: damped Duffing oscillator (two stable equilibria). Right: bistable oscillations (two stable limit cycles). Orange and green show the cells OPAL recovers, and gray marks unassigned points along the separatrix. Black is the true trajectory, blue is a single global EDMD model, and red is regional EDMD built on the learned partition.</div>
+        </div>
+
+        <!-- ============================================================ abstract -->
+        <!-- TODO: replace with the abstract from the submitted paper -->
+        <h2>Abstract</h2>
+        <p>Continuous immersions into finite-dimensional linear systems cannot separate distinct omega-limit sets, so a single global Koopman model of a multistable system blurs its basin boundaries and drifts over long horizons. We instead partition the state space by long-term behavior and learn one Koopman model per region. The target is the omega-limit partition, which groups initial conditions by the set their trajectories converge to; it is stationary and canonical. We show that partitions built from approximate Koopman invariants refine the omega-limit partition everywhere except on an exception set of small measure. Building on this result, we propose OPAL (Omega-limit Partitions from Approximate invariants, Learned from data), which computes approximate invariants from snapshot data with a generalized eigenvalue problem, clusters their level sets, merges the resulting fragments, and shrinks the cells away from their boundaries. On a damped Duffing oscillator and a bistable oscillator, OPAL classifies every retained validation point correctly, and regional EDMD models built on its partition reduce long-horizon error by about 15&times; and 26&times; relative to a single global EDMD model.</p>
+
+        <!-- ============================================================ walkthrough
+             One section per slide. Write the prose for each section, then delete
+             its .guide box. Once the text carries the story, swap each slide
+             image for the underlying figure from the paper / OPAL-Koopman repo. -->
+
+        <h2>Walkthrough</h2>
+
+        <h3><span class="slide-number">1</span>Multiple attractors break global models</h3>
+        <div class="figure slide"><img src="slides/slide-38.png" alt="Slide: Multiple Attractors Break Global Models" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Open with the obstruction: continuous immersions into finite-dimensional linear systems collapse distinct omega-limit sets (Liu, Ozay &amp; Sontag, 2025).</li>
+            <li>The consequence in practice: one global model blurs basin boundaries, and long-horizon predictions drift (the blue curves).</li>
+            <li>End on the idea: partition the state space into forward-invariant regions and learn <strong>one Koopman model per region</strong>.</li>
+            <li>The teaser figures already show both systems, so this section can be mostly text.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">2</span>Omega-limit sets define a canonical partition</h3>
+        <div class="figure slide"><img src="slides/slide-39.png" alt="Slide: Omega-Limit Sets Define a Canonical Partition" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Set up the dynamics x<sup>+</sup> = T(x) on a compact state space, and define a partition as disjoint nonempty cells covering X.</li>
+            <li>Define the omega-limit set &omega;(x) in words ("where the trajectory ends up") and the omega-limit partition: x ~ y iff &omega;(x) = &omega;(y), grouping initial conditions by their fate.</li>
+            <li>A stationary partition has T(C<sub>&alpha;</sub>) &sube; C<sub>&alpha;</sub>: trajectories never leave their cell.</li>
+            <li>Key claim: the omega-limit partition is stationary and canonical, the coarsest partition whose cells each share one omega-limit set.</li>
+            <li>Use the Duffing basin figure (C<sub>1</sub>, C<sub>2</sub> basins; C<sub>3</sub> the measure-zero stable manifold of the saddle).</li>
+        </ul></div>
+
+        <h3><span class="slide-number">3</span>Goal: learn the omega-limit partition</h3>
+        <div class="figure slide"><img src="slides/slide-40.png" alt="Slide: Goal, Learn the Omega-Limit Partition" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Problem statement: given snapshot pairs (x<sub>i</sub>, y<sub>i</sub> = T(x<sub>i</sub>)) and a dictionary &Psi; spanning S, find a partition close to P<sub>&omega;</sub>.</li>
+            <li>The tool: invariant observables, &#x1D4A6;f = f &hArr; f &#8728; T = f. From data we only get <em>approximate</em> invariants.</li>
+            <li>Spell out the acronym: <strong>O</strong>mega-limit <strong>P</strong>artitions from <strong>A</strong>pproximate invariants, <strong>L</strong>earned from data.</li>
+            <li>Preview the three-step story (theory &rarr; OPAL &rarr; regional models). This could be a small inline diagram instead of the slide.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">4</span>Approximate invariants refine the partition</h3>
+        <div class="figure slide"><img src="slides/slide-41.png" alt="Slide: Approximate Invariants Refine the Partition" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>This is the main theoretical result, so give it the most space.</li>
+            <li>Define the &epsilon;-approximate invariants E<sup>&epsilon;</sup><sub>inv</sub>(S) = {f &isin; S : &Vert;&#x1D4A6;f &minus; f&Vert; &le; &epsilon;&Vert;&#x1D4A6;f&Vert;} and the induced partition P<sub>&epsilon;</sub> (points agree on every approximate invariant).</li>
+            <li>State the theorem informally: if the dictionary approximates the indicator of each positive-measure omega-limit cell well enough, then P<sub>&epsilon;</sub> refines P<sub>&omega;</sub> outside an exception set B<sub>&eta;</sub> whose measure is bounded by (1/&eta;<sup>2</sup>) &sum; &delta;<sub>i</sub><sup>2</sup>.</li>
+            <li>Practical reading: the dictionary must approximate the indicators of the omega-limit cells.</li>
+            <li>Explain the cartoon: refining gives fragments, so the algorithm has to merge them back.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">5</span>OPAL: from data to a partition</h3>
+        <div class="figure slide"><img src="slides/slide-42.png" alt="Slide: OPAL, From Data to a Partition" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Walk through the four steps, one short paragraph each:
+                <ol>
+                    <li><strong>Approximate invariants:</strong> solve the generalized eigenvalue problem M<sub>&Psi;</sub>c = &lambda;N<sub>&Psi;</sub>c and keep eigenvectors with &lambda; &le; &epsilon;<sup>2</sup>.</li>
+                    <li><strong>Cluster:</strong> split each scalar invariant into intervals. The label vectors that occur in the data give the fine cells.</li>
+                    <li><strong>Merge:</strong> join cells using observed transitions and centroid distances, and drop cells with low occupancy.</li>
+                    <li><strong>Shrink:</strong> trim each cell by a robustness margin &tau;<sub>robust</sub> away from its boundary.</li>
+                </ol>
+            </li>
+            <li>Point readers to the OPAL-Koopman repo for the implementation.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">6</span>OPAL recovers both partitions</h3>
+        <div class="figure slide"><img src="slides/slide-43.png" alt="Slide: OPAL Recovers Both Partitions" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Give the two test systems with their equations:
+                <ul>
+                    <li>Damped Duffing: &#7819;<sub>1</sub> = x<sub>2</sub>, &#7819;<sub>2</sub> = &minus;0.5x<sub>2</sub> + x<sub>1</sub> &minus; x<sub>1</sub><sup>3</sup> (two stable equilibria, saddle at the origin).</li>
+                    <li>Bistable oscillations: &#7763; = (r &minus; 2) &minus; (r &minus; 2)<sup>3</sup>, &theta;&#775; = 1 (stable limit cycles at radius 1 and 3).</li>
+                </ul>
+            </li>
+            <li>Partitions are already shown in the teaser, so swap this slide for the two rollout-error plots (regional vs. vanilla EDMD) exported from the repo.</li>
+            <li>Note the gray points: a thin unassigned band along the separatrix.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">7</span>Regional models: an order of magnitude better</h3>
+        <div class="figure slide"><img src="slides/slide-44.png" alt="Slide: Regional Models, An Order of Magnitude Better" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Replace the slide with an HTML table: System / Model / Accuracy (dropped) / Step 50 / Step 300 (mean relative state error, units of 0.001).
+                Duffing: regional 100% (0.42%), 22.6, 16.4; vanilla 100.0, 255.0; regional without margin 99.86% (0%), diverged (24 of 50).
+                Bistable: regional 100% (0.23%), 9.2, 4.5; vanilla 71.3, 118.0; regional without margin 99.90% (0%), 18.8, 6.1.</li>
+            <li>Headline: about 15&times; lower error for Duffing and 26&times; for bistable at step 300.</li>
+            <li>Make the robustness-margin point: nearly correct is not enough. Without the margin, 99.86% accuracy still lets Duffing rollouts diverge.</li>
+            <li>Explain why the global model fails: it has a large steady-state error because it tries to fit two asymptotic behaviors at once.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">8</span>Summary</h3>
+        <div class="figure slide"><img src="slides/slide-45.png" alt="Slide: Summary" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Four bullet takeaways: obstruction &rarr; theory &rarr; OPAL &rarr; regional EDMD, each with its one-line lesson from the slide.</li>
+            <li>Close on the key sentence: multiple omega-limit sets obstruct a single continuous finite-dimensional Koopman model, <strong>but not a collection of them</strong>.</li>
+        </ul></div>
+
+        <!-- ============================================================ bibtex -->
+        <h2 id="bibtex">BibTeX</h2>
+        <!-- TODO: update once the paper is accepted / posted -->
+<pre class="bibtex">@inproceedings{shah2027opal,
+  title     = {Learning Omega-Limit Partitions from Approximate Koopman Invariants},
+  author    = {Shah, Dhruv and Cort{\'e}s, Jorge},
+  booktitle = {American Control Conference (ACC)},
+  note      = {Submitted},
+  year      = {2027}
+}</pre>
+
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            &copy; 2026 Dhruv Shah. Design adapted from <a href="https://nicklashansen.com">Nicklas Hansen</a>.
+        </div>
+    </div>
+
+</body>
+</html>

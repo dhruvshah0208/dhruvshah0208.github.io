@@ -1,0 +1,394 @@
+/* Layout and look adapted from Nicklas Hansen's academic page design (nicklashansen.com). */
+
+:root {
+    --bg: #fdfdfd;
+    --text: #2c3c4c;
+    --heading: #234;
+    --subheading: #345;
+    --muted: #678;
+    --link: #2471a3;
+    --link-hover: #f09228;
+    --rule: #ddd;
+    --btn: #f2f2f2;
+    --btn-hover: #e4e4e4;
+    --highlight: #fff8df;
+    --placeholder: #eef1f4;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #16191d;
+        --text: #cfd6dd;
+        --heading: #e8edf2;
+        --subheading: #c3ccd5;
+        --muted: #8b97a3;
+        --link: #6cb4e4;
+        --link-hover: #f5a54a;
+        --rule: #333a42;
+        --btn: #252a30;
+        --btn-hover: #313840;
+        --highlight: #2a2618;
+        --placeholder: #22272d;
+    }
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    font-family: "Lato", Verdana, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+h1, h2, h3 {
+    font-weight: normal;
+    color: var(--heading);
+}
+
+h1 {
+    font-size: 2.4em;
+    margin: 0 0 2px;
+}
+
+h2 {
+    margin-top: 48px;
+    margin-bottom: 20px;
+}
+
+a {
+    color: var(--link);
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: var(--link-hover);
+}
+
+p {
+    line-height: 1.6em;
+}
+
+/* Header */
+.header {
+    padding-top: 16px;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 16px;
+}
+
+.header-rule {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.header-rule::after {
+    content: "";
+    display: block;
+    border-bottom: 2px solid var(--rule);
+}
+
+.profile-picture {
+    flex: 0 0 auto;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    background-color: var(--placeholder);
+    background-position: center;
+    background-size: cover;
+    color: var(--muted);
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-subtitle {
+    margin-bottom: 10px;
+}
+
+/* Content column */
+.content {
+    max-width: 1000px;
+    padding: 0 16px;
+    margin: 40px auto 0;
+}
+
+.content.main {
+    padding-bottom: 64px;
+}
+
+/* Buttons used for link rows */
+.btn {
+    display: inline-block;
+    padding: 1px 7px;
+    font-size: 13px;
+    background-color: var(--btn);
+    border-radius: 3px;
+    margin: 2px 0;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: var(--btn-hover);
+}
+
+/* Links that still need a real URL */
+.btn.todo {
+    opacity: 0.45;
+}
+
+/* Publication / project rows */
+.entry {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 28px;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.entry.highlight {
+    background-color: var(--highlight);
+}
+
+.entry-media {
+    flex: 0 0 180px;
+    height: 120px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.entry-media video,
+.entry-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.entry-media.placeholder {
+    background-color: var(--placeholder);
+    border-radius: 4px;
+    color: var(--muted);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.entry-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.entry-title {
+    font-weight: bold;
+}
+
+.venue {
+    font-style: italic;
+}
+
+.status {
+    color: var(--muted);
+}
+
+.entry-text p {
+    margin: 6px 0 0;
+}
+
+/* Plain lists (service, awards) */
+.plain-list {
+    padding-left: 20px;
+    line-height: 1.7em;
+}
+
+/* Footer */
+.footer {
+    max-width: 920px;
+    margin: auto;
+    padding: 0 16px;
+}
+
+.footer-content {
+    border-top: 2px solid var(--rule);
+    color: var(--muted);
+    font-size: 11px;
+    padding: 6px 0 16px;
+}
+
+.footer-content a {
+    text-decoration: underline;
+}
+
+/* Narrow screens: stack header and rows */
+@media only screen and (max-width: 700px) {
+    body {
+        font-size: 17px;
+    }
+
+    .header-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-picture {
+        width: 140px;
+        height: 140px;
+    }
+
+    .entry {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .entry-media {
+        flex-basis: auto;
+        width: 100%;
+        max-width: 300px;
+        height: 170px;
+        margin: 0 auto;
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* Project pages (projects/<name>/index.html)                         */
+/* ------------------------------------------------------------------ */
+
+.back-link {
+    font-size: 13px;
+}
+
+.project-header {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.project-header h1 {
+    font-size: 2em;
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+
+.project-authors {
+    font-size: 1.1em;
+}
+
+.project-affiliation {
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+.figure {
+    margin: 24px 0;
+    text-align: center;
+}
+
+.figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.figure-row {
+    display: flex;
+    gap: 12px;
+}
+
+.figure-row img {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.caption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+    text-align: left;
+}
+
+.slide img {
+    border: 1px solid var(--rule);
+}
+
+.slide-number {
+    color: var(--muted);
+    font-size: 0.7em;
+    margin-right: 6px;
+}
+
+/* Drafting notes: delete each one once its section is written */
+.guide {
+    border: 1px dashed var(--muted);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 12px 0;
+}
+
+.guide::before {
+    content: "Content guide";
+    display: block;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.guide ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+pre.bibtex {
+    background-color: var(--btn);
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 12px;
+    overflow-x: auto;
+}
+
+@media only screen and (max-width: 700px) {
+    .figure-row {
+        flex-direction: column;
+    }
+}
+
+/* Popup shown for links to unreleased work */
+dialog.notice {
+    max-width: 420px;
+    padding: 20px 24px;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+dialog.notice::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+dialog.notice form {
+    text-align: right;
+}
+
+dialog.notice button {
+    border: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}

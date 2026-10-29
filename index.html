@@ -1,79 +1,184 @@
----
----
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ site.title }}</title>
-	<meta name="keywords" content="{{ site.keywords }}">
-	<meta name="description" content="{{ site.description }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="combo.css">
-  <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-  {% if site.favicon %}<link rel="shortcut icon" href="{{ site.favicon }}" type="image/x-icon">{% endif %}
-	{% if site.touch_icon %}<link rel="apple-touch-icon" href="{{ site.touch_icon }}">{% endif %}
-
-<style>
-body {
-  background-image: url(https://raw.githubusercontent.com/mahadevans2432/mahadevans2432.github.io/master/img/dark%20background.png);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
-
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Dhruv Shah">
+    <meta name="description" content="Dhruv Shah, Ph.D. candidate at UC San Diego working on Koopman operator theory, control, and generative modeling.">
+    <meta property="og:title" content="Dhruv Shah">
+    <meta property="og:description" content="Ph.D. Candidate, UC San Diego">
+    <title>Dhruv Shah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
-  <div id="main">
 
-
-
-    <nav><ul>
-      
-        <li class="p-intro active"><a href="index.html">Home</a></li>
-        
-        <li class="p-about-me"><a href="about-me.html">About me</a></li>
-
-        <!-- <li class="p-acads"><a href="acads.html">Academics</a></li> -->
-        
-        <li class="p-projects"><a href="projects.html">Projects</a></li>
-        
-        <li class="p-contact-me"><a href="contact-me.html">Contact me</a></li>
-
-        <!-- <li class="p-about-me"><a href="misc.html">Miscallaneous</a></li> -->
-      
-    </ul></nav>
-
- 
-      <div id="intro" class="section p-intro">
-        
-        <div class="container center">
-          <p><span class="fa-stack subtlecircle" style="font-size:117px; background:rgba(0,0,0,0.1)">
-  <img src="https://raw.githubusercontent.com/mahadevans2432/mahadevans2432.github.io/master/img/circle-cropped.png" class="myimg">
-</span></p>
-<h1 class="text-white"><em>Hello There</em></h1>
-
-<h1>Welcome to my Homepage :)</h1>
-	<p class="text-white">My name is Mahadevan Subramanian, I am a Ph.D. student at the University of Chicago working with <a href="https://pme.uchicago.edu/faculty/liang-jiang">Prof. Liang Jiang</a>. My research interests are in quantum error correction with a focus on finite-rate codes as well as bosonic error correction.
+    <!-- ================================================================ header -->
+    <div class="header">
+        <div class="content header-inner">
+            <div class="profile-picture" style="background-image: url('images/profile.jpg');" role="img" aria-label="Photo of Dhruv Shah"></div>
+            <div>
+                <h1>Dhruv Shah</h1>
+                <div class="header-subtitle">Ph.D. Candidate, Contextual Robotics Institute, UC San Diego</div>
+                <div>
+                    <a class="btn" href="#contact">Email</a> /
+                    <a class="btn" href="https://scholar.google.com/citations?user=iPZ9gTYAAAAJ">Google Scholar</a> /
+                    <a class="btn" href="https://github.com/dhruvshah0208">GitHub</a> /
+                    <a class="btn" href="https://www.linkedin.com/in/dhruvshah0208/">LinkedIn</a> /
+                    <a class="btn" href="files/resume_genai.pdf">CV</a>
+                </div>
+            </div>
         </div>
-      </div>
-    
-
-
-     <div id="footer" class="section text-white">
-      <div class="container">
-        <a class="btn btn-dark btn-social mx-2 p-1" href="https://github.com/mahadevans2432"><i class="fa fa-github"></i></a><a class="btn btn-dark btn-social mx-2 p-1" href="https://www.facebook.com/profile.php?id=100010435631844"><i class="fa fa-facebook"></i></a><a class="btn btn-dark btn-social mx-2 p-1" href="https://www.linkedin.com/in/mahadevan-subramanian-a3b4291a8/"><i class="fa fa-linkedin"></i></a>
-      </div>
-      <div class="container"><p>Mail me here: mahadevans[at]uchicago.edu, mahadevan.subramanian2432[at]gmail.com</p></div>
-      <div class="container"><p>Mahadevan Subramanian - 2025</p></div>
+        <div class="header-rule"></div>
     </div>
-  </div>
+
+    <div class="content main">
+
+        <!-- ============================================================ bio -->
+        <p>I am a Ph.D. candidate in <a href="https://mae.ucsd.edu/">Mechanical and Aerospace Engineering</a> at <a href="https://ucsd.edu/">UC San Diego</a>, where I am advised by Prof. <a href="https://carmenere.ucsd.edu/jorge/">Jorge Cort&eacute;s</a> and affiliated with the <a href="https://contextualrobotics.ucsd.edu/">Contextual Robotics Institute</a>. I received my B.Tech. in Electrical Engineering, with Honors and a Minor in Computer Science, from <a href="https://www.iitb.ac.in/">IIT Bombay</a>, where I worked with Prof. Vivek Borkar.</p>
+
+        <p>Most of my research is focused on Koopman operator theory: finding accurate linear representations of nonlinear dynamics. The Koopman operator lifts a nonlinear system into a space of observables where it evolves linearly, which opens the door to spectral analysis, prediction, and control with linear tools. The catch is that any practical approximation lives in a finite-dimensional subspace, and its quality depends entirely on how close that subspace is to invariant. Much of my work is about that question: how to measure invariance, and how to find subspaces that have it.</p>
+
+        <p>I started out in robust control of neural feedback loops, deriving stability certificates and controller synthesis methods for systems with neural networks in the loop. From there I moved to the Koopman approximation side, developing principal-vector methods that prune large dictionaries (including kernel dictionaries) down to accurate, nearly invariant subspaces.</p>
+
+        <p>More recently, I have turned these ideas toward generative modeling. Flow-based generative models transport noise to data along the trajectories of a learned dynamical system, and flow maps learn to jump directly between points on those trajectories, enabling generation in just a few steps. Because a flow map is itself the solution operator of a dynamical system, Koopman theory gives a natural way to structure it. Read more in <a class="kfm-link" href="#">Koopman Flow Maps</a>. </p>
+
+        <p>My current research focuses on applying these Koopman-inspired architectures to flow language models and world models, where the same structure could make few-step generation of text and of future states more accurate and efficient. More broadly, I am interested in bringing tools from dynamical systems and control to problems in generative AI and robotics, where structure can make learned models more accurate, interpretable, and efficient.</p>
+
+        <p>Always happy to chat about Koopman operators, control, or generative modeling. Feel free to reach out via email!</p>
+
+        <!-- ============================================================ publications -->
+        <h2>Publications and preprints</h2>
+
+        <div class="entry highlight">
+            <a class="entry-media kfm-link" href="#" style="background-image: url('images/thumbs/kfm.png');"></a>
+            <div class="entry-text">
+                <a class="entry-title kfm-link" href="#">Koopman Flow Maps: Mode Structure for Flow Map Matching</a><br>
+                <strong>Dhruv Shah</strong>, Jorge Cort&eacute;s<br>
+                <span class="status">In preparation</span><br>
+                <p>A Koopman-structured flow-map parametrization for few-step generation that beats its unstructured counterpart at every NFE on CIFAR-10 and CelebA-HQ.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-media" style="background-image: url('images/thumbs/opal.png');"></div>
+            <div class="entry-text">
+                <span class="entry-title">Learning Omega-Limit Partitions from Approximate Koopman Invariants</span><br>
+                <strong>Dhruv Shah</strong>, Jorge Cort&eacute;s<br>
+                <span class="venue">American Control Conference (ACC), 2027</span> <span class="status">(submitted)</span><br>
+                <a class="btn todo" href="#">Paper</a>
+                <p>Splitting the state space by long-term behavior and learning one Koopman model per region, for 15&ndash;26&times; lower long-horizon error.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-media" style="background-image: url('images/thumbs/subspace_pruning.png');"></div>
+            <div class="entry-text">
+                <span class="entry-title">Subspace Pruning via Principal Vectors for Accurate Koopman-Based Approximations</span><br>
+                <strong>Dhruv Shah</strong>, Jorge Cort&eacute;s<br>
+                <span class="venue">IEEE Transactions on Automatic Control</span> <span class="status">(submitted)</span><br>
+                <span class="status">Conference version: <span class="venue">IEEE Conference on Decision and Control (CDC), 2026</span></span><br>
+                <a class="btn" href="https://arxiv.org/abs/2605.13135">Paper</a>
+                <p>Pruning a large dictionary to an accurate, nearly invariant subspace, with numerical drift explained and fixed.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-media" style="background-image: url('images/thumbs/kernel_pruning.png');"></div>
+            <div class="entry-text">
+                <span class="entry-title">Koopman Subspace Pruning in Reproducing Kernel Hilbert Spaces via Principal Vectors</span><br>
+                <strong>Dhruv Shah</strong>, Jorge Cort&eacute;s<br>
+                <span class="venue">IEEE Conference on Decision and Control (CDC), 2026</span><br>
+                <a class="btn" href="https://arxiv.org/abs/2604.01459">Paper</a>
+                <p>Bringing subspace pruning to kernel dictionaries, scaled to large datasets with Nystr&ouml;m features.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-media" style="background-image: url('images/thumbs/NFL.png');"></div>
+            <div class="entry-text">
+                <span class="entry-title">Controller Design for Bilinear Neural Feedback Loops</span><br>
+                <strong>Dhruv Shah</strong>, Jorge Cort&eacute;s<br>
+                <span class="venue">IEEE Control Systems Letters, vol. 9, pp. 1712&ndash;1717, 2025</span><br>
+                <a class="btn" href="https://arxiv.org/abs/2505.24106">Paper</a>
+                <p>LMI stability certificates and LPV controller synthesis for feedback loops containing neural networks.</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ projects -->
+        <h2>Projects</h2>
+
+        <div class="entry">
+            <a class="entry-media" href="files/ECE276A_PR1.pdf" style="background-image: url('images/thumbs/imu_panorama.png');"></a>
+            <div class="entry-text">
+                <a class="entry-title" href="files/ECE276A_PR1.pdf">IMU Orientation Tracking and Panorama Stitching</a><br>
+                <span class="venue">ECE 276A, UCSD, 2026</span><br>
+                <a class="btn" href="files/ECE276A_PR1.pdf">Report</a>
+                <p>Quaternion orientation estimation recast as a shooting problem over angular velocities, cutting RMS error by up to 63%, then used to build camera panoramas.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <a class="entry-media" href="files/ECE276A_PR2.pdf" style="background-image: url('images/thumbs/lidar_slam_map.png');"></a>
+            <div class="entry-text">
+                <a class="entry-title" href="files/ECE276A_PR2.pdf">LiDAR SLAM with Pose-Graph Optimization</a><br>
+                <span class="venue">ECE 276A, UCSD, 2026</span><br>
+                <a class="btn" href="files/ECE276A_PR2.pdf">Report</a>
+                <p>Odometry-warm-started ICP scan matching with loop closures in a GTSAM pose graph, producing a globally consistent occupancy grid map.</p>
+            </div>
+        </div>
+
+        <div class="entry">
+            <a class="entry-media" href="files/ECE276A_PR3.pdf" style="background-image: url('images/thumbs/vi_slam_map.png');"></a>
+            <div class="entry-text">
+                <a class="entry-title" href="files/ECE276A_PR3.pdf">Visual-Inertial SLAM with an SE(3) EKF</a><br>
+                <span class="venue">ECE 276A, UCSD, 2026</span><br>
+                <a class="btn" href="files/ECE276A_PR3.pdf">Report</a>
+                <p>Fusing IMU and stereo camera data on a real robot, tracking 1,500+ landmarks with a banded sparse covariance.</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ service -->
+        <h2>Service and awards</h2>
+        <ul class="plain-list">
+            <li>Session co-chair, &ldquo;Advances in the Koopman Operator for Systems and Control,&rdquo; CDC 2026</li>
+            <li>Reviewer: IEEE TAC, L-CSS, CDC, ACC</li>
+            <li>IIT Bombay Undergraduate Research Award (2022)</li>
+            <li>MITACS Globalink Fellowship (2022), DAAD-WISE Scholarship (2022)</li>
+            <li>KVPY Fellowship (2019)</li>
+        </ul>
+
+        <!-- ============================================================ contact -->
+        <h2 id="contact">Contact</h2>
+        <p>You are welcome to contact me about my research! My email is <strong>dhshah</strong> [at] <strong>ucsd</strong> [dot] <strong>edu</strong>.</p>
+
+    </div>
+
+    <dialog id="kfm-dialog" class="notice">
+        <p>The <strong>Koopman Flow Maps</strong> preprint is currently under review. If you would like a copy, please request it via <a href="#contact">email</a>.</p>
+        <form method="dialog"><button class="btn">Close</button></form>
+    </dialog>
+
+    <script>
+        var kfmDialog = document.getElementById('kfm-dialog');
+        document.querySelectorAll('.kfm-link').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                kfmDialog.showModal();
+            });
+        });
+        kfmDialog.querySelector('a[href="#contact"]').addEventListener('click', function () {
+            kfmDialog.close();
+        });
+    </script>
+
+    <div class="footer">
+        <div class="footer-content">
+            &copy; 2026 Dhruv Shah. Design adapted from <a href="https://nicklashansen.com">Nicklas Hansen</a>.
+        </div>
+    </div>
+
 </body>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="site.js"></script>
 </html>

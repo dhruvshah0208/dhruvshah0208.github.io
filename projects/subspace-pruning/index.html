@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Dhruv Shah">
+    <meta name="description" content="Subspace pruning via principal vectors: pruning a large dictionary to an accurate, nearly Koopman-invariant subspace.">
+    <meta property="og:title" content="Subspace Pruning via Principal Vectors">
+    <meta property="og:description" content="Pruning a large dictionary to an accurate, nearly invariant subspace, with numerical drift explained and fixed.">
+    <meta property="og:image" content="figures/eigenfunction_distance.png">
+    <title>Subspace Pruning via Principal Vectors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../stylesheet.css">
+</head>
+<body>
+
+    <div class="content main">
+
+        <a class="back-link" href="../../">&larr; Dhruv Shah</a>
+
+        <!-- ============================================================ title -->
+        <div class="project-header">
+            <h1>Subspace Pruning via Principal Vectors<br>for Accurate Koopman-Based Approximations</h1>
+            <div class="project-authors">
+                <a href="../../">Dhruv Shah</a>, <a href="https://carmenere.ucsd.edu/jorge/">Jorge Cort&eacute;s</a>
+            </div>
+            <div class="project-affiliation">UC San Diego &middot; IEEE Transactions on Automatic Control (submitted) &middot; Conference version: CDC 2026</div>
+            <a class="btn todo" href="#">Paper</a> /
+            <a class="btn todo" href="#">CDC version</a> /
+            <a class="btn todo" href="#">Code</a> /
+            <a class="btn" href="#bibtex">BibTeX</a>
+        </div>
+
+        <!-- ============================================================ teaser -->
+        <div class="figure">
+            <div class="figure-row">
+                <img src="figures/eigenfunction_distance.png" alt="Distance to known eigenfunctions versus subspace dimension for SPV, MPV and MPV-SPV">
+                <img src="figures/invariance_proximity.png" alt="Invariance proximity versus subspace dimension for SPV, MPV and MPV-SPV">
+            </div>
+            <div class="caption"><strong>MPV-SPV fixes the numerical drift of one-at-a-time pruning.</strong> Pruning runs from right to left, starting from a large dictionary that contains four known Koopman eigenfunctions. Left: plain SPV drifts away from the known eigenfunctions as it prunes, while MPV-SPV stays about four orders of magnitude closer. Right: the final MPV-SPV subspace is also about 20&times; closer to invariant.</div>
+        </div>
+
+        <!-- ============================================================ abstract -->
+        <!-- TODO: replace with the abstract from the submitted paper -->
+        <h2>Abstract</h2>
+        <p>Finite-dimensional Koopman models such as EDMD are only as accurate as the subspace of observables they are built on. When that subspace is not invariant under the Koopman operator, predictions and eigenfunctions inherit an error that the invariance proximity, the sine of the largest principal angle between a subspace and its Koopman image, bounds in closed form. We study the problem of pruning a large dictionary to a subspace whose invariance proximity falls below a given tolerance. We cast pruning geometrically in terms of principal angles and vectors, show that single-principal-vector (SPV) pruning coincides with Recursive Forward-Backward EDMD, and introduce a batch variant (MPV). In large dictionaries, one-at-a-time pruning suffers from numerical drift: eigenfunctions that lie only approximately in the dictionary are gradually lost. We bound this drift and use the bound to design MPV-SPV, a hybrid that first prunes coarsely and then refines, which keeps known eigenfunctions about four orders of magnitude closer and yields a subspace about 20&times; closer to invariant. Rank-one updates of the principal angles and vectors make each pruning step cheap, so the total runtime is dominated by a single initial SVD. On the Van der Pol oscillator, a 12-dimensional pruned model tracks the dynamics over 3000 steps where EDMD drifts and kernel EDMD goes unstable.</p>
+
+        <!-- ============================================================ walkthrough
+             One section per slide. Write the prose for each section, then delete
+             its .guide box. Once the text carries the story, swap each slide
+             image for the underlying figure from the paper. -->
+
+        <h2>Walkthrough</h2>
+
+        <h3><span class="slide-number">1</span>The Koopman operator</h3>
+        <div class="figure slide"><img src="slides/slide-6.png" alt="Slide: Basics on Koopman Operator" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>For dynamics x<sup>+</sup> = T(x), the Koopman operator acts on observables by composition: &#x1D4A6;f = f &#8728; T. It is linear even when T is not.</li>
+            <li>Define a Koopman-invariant subspace (&#x1D4A6;f &isin; S for every f &isin; S) and an eigenfunction (&phi;(x<sup>+</sup>) = &lambda;&phi;(x)).</li>
+            <li>Cite Koopman (1931).</li>
+        </ul></div>
+
+        <h3><span class="slide-number">2</span>Eigenfunctions capture system behavior</h3>
+        <div class="figure slide"><img src="slides/slide-7.png" alt="Slide: Koopman Eigenfunctions Capture System Behavior" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Use the worked example x<sub>1</sub><sup>+</sup> = 0.8x<sub>1</sub>, x<sub>2</sub><sup>+</sup> = 0.5x<sub>2</sub> + 0.7x<sub>1</sub><sup>2</sup> + 0.1, which has an exact invariant subspace span(1, x<sub>1</sub>, x<sub>2</sub>, x<sub>1</sub><sup>2</sup>, x<sub>1</sub>x<sub>2</sub>, x<sub>1</sub><sup>3</sup>).</li>
+            <li>The eigenfunction table could be an HTML table. Explain the plot: level sets of &phi;<sub>2</sub> and &phi;<sub>4</sub>, with trajectories hopping between them.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">3</span>Finite-dimensional representations</h3>
+        <div class="figure slide"><img src="slides/slide-8.png" alt="Slide: Computing Finite Dimensional Representations" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>The problem: capture &#x1D4A6; on a finite-dimensional subspace S. The approximation P<sub>S</sub>&#x1D4A6; is exact only if S is invariant.</li>
+            <li>EDMD is the orthogonal projection P<sub>S</sub>&#x1D4A6;|<sub>S</sub> in the empirical L<sub>2</sub> inner product over the data.</li>
+            <li>End with the question: how do we measure the quality of a subspace?</li>
+        </ul></div>
+
+        <h3><span class="slide-number">4</span>Principal angles and invariance proximity</h3>
+        <div class="figure slide"><img src="slides/slide-9.png" alt="Slide: Principal Angles and Vectors" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Define principal angles and vectors between two subspaces as successive best-aligned pairs. The 3D figure is a good intuition aid.</li>
+            <li>Key quantity: invariance proximity sin &theta;<sub>max</sub>(S, &#x1D4A6;S) equals the worst-case relative prediction error over S, and the supremum is achieved (Haseli &amp; Cort&eacute;s, arXiv:2311.13033).</li>
+        </ul></div>
+
+        <h3><span class="slide-number">5</span>The subspace pruning problem</h3>
+        <div class="figure slide"><img src="slides/slide-10.png" alt="Slide: The Subspace Pruning Problem" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>State the problem: given S<sub>init</sub> and &epsilon; &isin; [0, 1), find an expressive S* &sube; S<sub>init</sub> with sin &theta;<sub>max</sub>(&#x1D4A6;S*, S*) &le; &epsilon;.</li>
+            <li>Why it matters: reliable prediction of every observable in S*, and reliable eigenfunctions (both follow from the worst-case bound).</li>
+            <li>Remarks: it is a combinatorial search, larger subspaces are preferred, and the idea is to drop the worst principal vectors until the tolerance is met.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">6</span>Single principal vector (SPV) pruning</h3>
+        <div class="figure slide"><img src="slides/slide-11.png" alt="Slide: Single Principal Vector (SPV) Pruning" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Walk through the flowchart: compute principal angles and vectors of (S<sub>k</sub>, &#x1D4A6;S<sub>k</sub>), stop if sin &theta;<sub>max</sub> &le; &epsilon;, otherwise remove the worst principal vector and repeat.</li>
+            <li>Properties: worst-offender rule, recomputation every step, and nested subspaces.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">7</span>Multiple principal vector (MPV) pruning</h3>
+        <div class="figure slide"><img src="slides/slide-12.png" alt="Slide: Multiple Principal Vector Pruning" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Same loop, but drop every principal vector with sin &theta;<sub>j</sub> &gt; &epsilon; at once.</li>
+            <li>Trade-off: fewer pruning steps, but it can be too aggressive. Slides 6 and 7 could be merged into one section with a single figure.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">8</span>SPV is RFB-EDMD</h3>
+        <div class="figure slide"><img src="slides/slide-13.png" alt="Slide: Equivalence of SPV and RFB-EDMD" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>RFB-EDMD (Haseli &amp; Cort&eacute;s, IEEE Access 2025) prunes the top eigenvector of the consistency matrix M<sub>c</sub> = I &minus; K<sub>f</sub>K<sub>b</sub>.</li>
+            <li>Lemma: the eigenvalues of M<sub>c</sub> are sin<sup>2</sup> &theta;<sub>i</sub>(S, &#x1D4A6;S), and its eigenvectors map to the principal vectors. So both methods remove the same direction every iteration.</li>
+            <li>Takeaway: SPV is the geometric view of RFB-EDMD, so it inherits RFB-EDMD's guarantee that exact eigenfunctions are retained.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">9</span>Numerical drift in large dictionaries</h3>
+        <div class="figure slide"><img src="slides/slide-14.png" alt="Slide: Numerical Drift in Large Dictionaries" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Experiment: a system with four known eigenfunctions, embedded in a large dictionary. Track the distance to those eigenfunctions as pruning proceeds (read the plot right to left).</li>
+            <li>SPV loses them by the end, even though in exact arithmetic it should keep them. The cause is finite-precision error.</li>
+            <li>The teaser already shows this plot, so the section can point to it instead of repeating it.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">10</span>Characterizing the drift</h3>
+        <div class="figure slide"><img src="slides/slide-15.png" alt="Slide: Characterizing the Numerical Drift" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Setting: an eigenfunction that is only &epsilon;-close to the initial dictionary, which is always the case in finite precision.</li>
+            <li>Bound: after T steps, dist(f, S<sub>T</sub>) &le; &epsilon; &prod;<sub>k</sub> &radic;(1 + C&#771;<sup>2</sup>/&gamma;<sub>k</sub><sup>2</sup>), where &gamma;<sub>k</sub> is the smallest sine among directions removed at step k.</li>
+            <li>Design lessons: reduce the number of steps T, and keep each &gamma;<sub>k</sub> large.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">11</span>MPV-SPV: coarse, then fine</h3>
+        <div class="figure slide"><img src="slides/slide-16.png" alt="Slide: MPV-SPV Algorithm" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Algorithm: MPV with &epsilon;<sub>coarse</sub> = 0.1 removes only the clearly bad directions in a few steps, then SPV with &epsilon; = 0.001 refines one direction at a time.</li>
+            <li>Connect it to the bound: MPV cuts T, and the coarse threshold keeps &gamma;<sub>k</sub> large.</li>
+            <li>Output: a nested sequence S<sub>0</sub> &sup; S<sub>1</sub> &sup; &hellip; &sup; S<sub>T</sub>, which is used later to choose a subspace.</li>
+            <li>Results: about 4 orders of magnitude closer to the eigenfunctions and a final subspace about 20&times; closer to invariant (the teaser figures).</li>
+        </ul></div>
+
+        <h3><span class="slide-number">12</span>Fast pruning with rank-one updates</h3>
+        <div class="figure slide"><img src="slides/slide-17.png" alt="Slide: Efficient Computation via Rank-One Updates" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Goal: update the principal angles and vectors after dropping k vectors, without recomputing from scratch.</li>
+            <li>Pipeline: QR of the Koopman image, a chain of k rank-one eigen-updates at O(s<sup>2</sup>) each, then rotate W and R. No new pass over the data is needed.</li>
+            <li>Cost per step: O(ks<sup>2</sup>) instead of O(s<sup>3</sup>).</li>
+        </ul></div>
+
+        <h3><span class="slide-number">13</span>Rank-one updates in practice</h3>
+        <div class="figure slide"><img src="slides/slide-18.png" alt="Slide: Rank-One Updates in Practice" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Replace the slide with an HTML table of wall-clock times in seconds (Table I of the paper). Columns: Init. dim / SPV / SPV (rank-1) / MPV / MPV (rank-1) / MPV-SPV (rank-1) / first SVD.
+                53: 4.10, 0.74, 0.55, 0.53, 0.63, 0.27.
+                128: 32.65, 2.38, 1.33, 1.21, 1.39, 1.10.
+                428: 176.12, 8.73, 4.93, 3.52, 3.86, 3.38.
+                928: 204.04, 14.54, 10.92, 10.25, 9.21, 8.90.</li>
+            <li>Headline: at s = 928, the first SVD takes 97% of MPV-SPV's runtime. All pruning steps together take under 0.5 s at every dictionary size.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">14</span>From a pruned subspace to a model</h3>
+        <div class="figure slide"><img src="slides/slide-19.png" alt="Slide: Building Koopman Representations" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Two competing goals: accuracy (&epsilon;<sub>acc</sub>, the worst-case relative prediction error) and expressivity (&epsilon;<sub>exp</sub>, how well the state is captured by S). The trivial subspace span{1} is exactly invariant but captures nothing.</li>
+            <li>Choosing along the pruning sequence: early subspaces reconstruct the state better and suit short horizons; late subspaces stay accurate over many steps and suit long horizons and planning.</li>
+            <li>For state prediction: lift with the pruned dictionary, evolve with A<sup>t</sup>, then map back through C (from the hidden State Reconstruction slide).</li>
+        </ul></div>
+
+        <h3><span class="slide-number">15</span>Example: Van der Pol oscillator</h3>
+        <div class="figure slide"><img src="slides/slide-20.png" alt="Slide: Example, Van der Pol Oscillator" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Setup: 500 trajectories &times; 400 steps from [&minus;4, 4]<sup>2</sup>, &Delta;t = 0.025. Dictionary of 289 Wendland-kernel RBFs on a 0.5 grid. MPV-SPV with &epsilon;<sub>coarse</sub> = 0.1, then &epsilon; = 0.01, keeps a 12-dimensional subspace. Baselines are EDMD and kernel EDMD on all 289 functions.</li>
+            <li>Result: the 12-dimensional model tracks the oscillator over 3000 steps. Kernel EDMD is better early but goes unstable, EDMD drifts, and the lifted-state error stays orders of magnitude lower.</li>
+            <li>Swap the slide for the four prediction and error plots from the paper.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">16</span>Bigger is not always better</h3>
+        <div class="figure">
+            <div class="figure-row">
+                <img src="figures/duffing_eigenfunction_full.png" alt="Leading non-trivial eigenfunction from a 503-element dictionary on the damped Duffing oscillator" loading="lazy">
+                <img src="figures/duffing_eigenfunction_pruned.png" alt="Leading non-trivial eigenfunction from a 14-dimensional pruned subspace on the damped Duffing oscillator" loading="lazy">
+            </div>
+            <div class="caption">Damped Duffing oscillator: the leading non-trivial eigenfunction (eigenvalue 1) from the full 503-element dictionary (left) and from a 14-dimensional pruned subspace (right). Only the pruned one separates the two basins of attraction.</div>
+        </div>
+        <div class="guide"><ul>
+            <li>An eigenfunction with eigenvalue 1 should be constant on each basin of attraction, so it is a direct test of eigenfunction quality.</li>
+            <li>The full dictionary gives a noisy, local blob. The 14-dimensional pruned subspace cleanly separates the two basins.</li>
+            <li>Link forward to the <a href="../opal/">OPAL</a> project, which builds on this idea.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">17</span>Summary</h3>
+        <div class="figure slide"><img src="slides/slide-22.png" alt="Slide: Summary and Next Steps" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Takeaways: a geometric unification of pruning algorithms, numerical drift explained and fixed, fast pruning, models for prediction, and better eigenfunctions.</li>
+            <li>Next steps: extend to RKHS (link to the <a href="../kernel-pruning/">kernel pruning</a> page, which does this), exploit eigenfunction quality, balance expressivity against accuracy, and pruning for Koopman control families. Keep only the directions you want public.</li>
+            <li>This could be a bullet list instead of the slide. Note that the slide's heading reads "What we shown".</li>
+        </ul></div>
+
+        <!-- ============================================================ bibtex -->
+        <h2 id="bibtex">BibTeX</h2>
+        <!-- TODO: update once the papers are accepted / posted -->
+<pre class="bibtex">@article{shah2026subspacepruning,
+  title   = {Subspace Pruning via Principal Vectors for Accurate Koopman-Based Approximations},
+  author  = {Shah, Dhruv and Cort{\'e}s, Jorge},
+  journal = {IEEE Transactions on Automatic Control},
+  note    = {Submitted},
+  year    = {2026}
+}
+
+@inproceedings{shah2026unifiedpruning,
+  title     = {A Unified Algebraic Framework for Subspace Pruning in Koopman Operator Approximation via Principal Vectors},
+  author    = {Shah, Dhruv and Cort{\'e}s, Jorge},
+  booktitle = {65th IEEE Conference on Decision and Control (CDC)},
+  year      = {2026}
+}</pre>
+
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            &copy; 2026 Dhruv Shah. Design adapted from <a href="https://nicklashansen.com">Nicklas Hansen</a>.
+        </div>
+    </div>
+
+</body>
+</html>

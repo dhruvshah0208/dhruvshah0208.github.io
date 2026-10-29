@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Dhruv Shah">
+    <meta name="description" content="Koopman subspace pruning in reproducing kernel Hilbert spaces via principal vectors, scaled to large datasets with Nyström features.">
+    <meta property="og:title" content="Koopman Subspace Pruning in RKHS via Principal Vectors">
+    <meta property="og:description" content="Bringing subspace pruning to kernel dictionaries, scaled to large datasets with Nyström features.">
+    <meta property="og:image" content="figures/eigfn_error_pruned.png">
+    <title>Kernel Subspace Pruning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../stylesheet.css">
+</head>
+<body>
+
+    <div class="content main">
+
+        <a class="back-link" href="../../">&larr; Dhruv Shah</a>
+
+        <!-- ============================================================ title -->
+        <div class="project-header">
+            <h1>Koopman Subspace Pruning in Reproducing<br>Kernel Hilbert Spaces via Principal Vectors</h1>
+            <div class="project-authors">
+                <a href="../../">Dhruv Shah</a>, <a href="https://carmenere.ucsd.edu/jorge/">Jorge Cort&eacute;s</a>
+            </div>
+            <div class="project-affiliation">UC San Diego &middot; IEEE Conference on Decision and Control (CDC), 2026</div>
+            <a class="btn todo" href="#">Paper</a> /
+            <a class="btn todo" href="#">arXiv</a> /
+            <a class="btn todo" href="#">Code</a> /
+            <a class="btn" href="#bibtex">BibTeX</a>
+        </div>
+
+        <!-- ============================================================ teaser -->
+        <div class="figure">
+            <div class="figure-row">
+                <img src="figures/eigfn_error_kernel_edmd.png" alt="Relative 5-step eigenfunction prediction error for kernel EDMD with 200 kernel sections">
+                <img src="figures/eigfn_error_pruned.png" alt="Relative 5-step eigenfunction prediction error after Approximate Kernel-SPV pruning to 5 dimensions">
+            </div>
+            <div class="caption"><strong>Pruning a kernel dictionary sharply reduces eigenfunction error.</strong> The relative 5-step prediction error |&#x1D4A6;<sup>5</sup>&phi; &minus; &lambda;<sup>5</sup>&phi;| of an eigenfunction with &lambda; &asymp; 1 on the undamped Duffing oscillator, shown on the same color scale. Left: kernel EDMD on 200 kernel sections. Right: after Approximate Kernel-SPV prunes the subspace to 5 dimensions, using D = 2000 Nystr&ouml;m features.</div>
+        </div>
+
+        <!-- ============================================================ abstract -->
+        <!-- TODO: replace with the abstract from the paper -->
+        <h2>Abstract</h2>
+        <p>Subspace pruning finds a nearly Koopman-invariant subspace inside a large dictionary by repeatedly removing the principal vector that is worst aligned with the subspace's Koopman image. Kernel dictionaries are a natural fit for this, but the principal angles must then be computed in the inner product of a reproducing kernel Hilbert space (RKHS), where the Koopman image of a kernel section need not lie in the space and the kernel trick does not directly apply. Under an idealized dataset-invariance assumption, we express the Koopman image in kernel coordinates, obtain every required Gram matrix from kernel evaluations, and compute exact RKHS principal angles and vectors through an implicit QR factorization. This yields Kernel-SPV, whose cost is dominated by an O(N<sup>3</sup>) linear solve in the number of data points. To scale to large datasets, we replace the kernel with Nystr&ouml;m features on D &#8810; N landmarks, which gives Approximate Kernel-SPV at cost O(NDs + D<sup>3</sup>), linear in the dataset size. On the undamped Duffing oscillator, D = 2000 features already reproduce the exact pruning sequence, and pruning from 200 kernel sections to 5 sharply reduces the eigenfunction prediction error relative to kernel EDMD.</p>
+
+        <!-- ============================================================ walkthrough
+             One section per slide. Write the prose for each section, then delete
+             its .guide box. Once the text carries the story, swap each slide
+             image for the underlying figure from the paper.
+             Slides named extra-*.png were hidden in the talk; they carry the
+             technical steps and can be trimmed or merged. -->
+
+        <h2>Walkthrough</h2>
+
+        <div class="guide"><ul>
+            <li>Open with one or two sentences pointing to the <a href="../subspace-pruning/">subspace pruning</a> page for background on invariance proximity, principal angles and SPV pruning, so this page can start directly in the RKHS setting.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">1</span>RKHS basics and kernel EDMD</h3>
+        <div class="figure slide"><img src="slides/extra-rkhs-basics.png" alt="Slide: RKHS Basics and Kernel EDMD" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>A symmetric positive-definite kernel k defines the RKHS &#x1D4A9;(X). Kernel sections &Phi;<sub>x</sub> = k(&middot;, x) have the reproducing property f(x) = &lang;f, &Phi;<sub>x</sub>&rang;, which gives the kernel trick &lang;&Phi;<sub>x<sub>i</sub></sub>, &Phi;<sub>y<sub>j</sub></sub>&rang; = k(x<sub>i</sub>, y<sub>j</sub>).</li>
+            <li>Notation: data matrices X and Y, &Phi;<sub>X</sub>, and K<sub>X,Y</sub> = &Phi;<sub>X</sub><sup>&#8868;</sup>&Phi;<sub>Y</sub>.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">2</span>Problem formulation</h3>
+        <div class="figure slide"><img src="slides/slide-24.png" alt="Slide: Problem Formulation" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Problem 1: invariant subspace search in RKHS. Find the largest S* &sube; S with invariance proximity &delta;(S*) &le; &epsilon;, measured in the RKHS inner product. SPV solves it if we can compute Problem 2.</li>
+            <li>Problem 2: compute the principal angles and vectors between S and &#x1D4A6;S in &lang;&middot;, &middot;&rang;<sub>&#x1D4A9;</sub>. In the Euclidean case this is a single SVD.</li>
+            <li>Contributions, in order: an exact RKHS routine (Gram matrices + SVD, O(N<sup>3</sup>)), a Nystr&ouml;m approximation (D &#8810; N landmarks, O(NDs + D<sup>3</sup>)), and Kernel-SPV with its approximate version.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">3</span>The obstacle and a key assumption</h3>
+        <div class="figure slide"><img src="slides/extra-obstacle.png" alt="Slide: The Obstacle and a Key Assumption" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Principal angles need four blocks of inner products. Three follow from the kernel trick, but (&#x1D4A6;V)<sup>&#8868;</sup>(&#x1D4A6;V) does not, because &#x1D4A6;&Phi;<sub>y</sub> need not lie in the RKHS.</li>
+            <li>Assumption (idealized dataset invariance): span(&#x1D4A6;V) &sube; span(&Phi;<sub>X</sub>), so &#x1D4A6;V = &Phi;<sub>X</sub>W<sub>&#x1D4A6;V</sub>. It is justified by RKHS universality.</li>
+            <li>Consequence: every block becomes a kernel-matrix product.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">4</span>Koopman image and Gram matrices</h3>
+        <div class="figure slide"><img src="slides/extra-gram-matrices.png" alt="Slide: Koopman Image and Gram Matrices" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Lemma: the coefficients of the Koopman image solve K<sub>X,X</sub>W<sub>&#x1D4A6;V</sub> = K<sub>T(X),X</sub>W<sub>V</sub>.</li>
+            <li>With them, M<sub>V</sub>, M<sub>&#x1D4A6;V</sub> and M<sub>cross</sub> are all computable, though possibly rank-deficient.</li>
+            <li>Bottleneck: the N &times; N solve costs O(N<sup>3</sup>). Add &lambda;I to K<sub>X,X</sub> for stability.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">5</span>Implicit QR via spectral truncation</h3>
+        <div class="figure slide"><img src="slides/extra-implicit-qr.png" alt="Slide: Implicit QR via Spectral Truncation" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>The basis functions are known only through kernel sections, so they cannot be QR-factored directly, but their Gram matrix is enough.</li>
+            <li>Four steps: a truncated eigendecomposition of M (keep &lambda; &gt; &tau;), the square-root factor B, an economic QR of B, and a closed-form pseudo-inverse R<sup>&dagger;</sup>. The result is Q<sub>V</sub> = VR<sub>V</sub><sup>&dagger;</sup>, orthonormal in the RKHS inner product.</li>
+            <li>Numerics: Gram spectra decay fast, so a hard tolerance (for example &tau; = 10<sup>&minus;8</sup>) avoids amplifying noise.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">6</span>Exact principal angles and vectors in RKHS</h3>
+        <div class="figure slide"><img src="slides/extra-exact-angles.png" alt="Slide: Principal Angles and Vectors in RKHS" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Theorem: the SVD of the cosine matrix M = (R<sub>V</sub><sup>&dagger;</sup>)<sup>&#8868;</sup>M<sub>cross</sub>R<sub>&#x1D4A6;V</sub><sup>&dagger;</sup> gives cos &theta;<sub>i</sub> = &sigma;<sub>i</sub> and the coefficients of the principal vectors.</li>
+            <li>Present Algorithm 1 as a short numbered list, or embed it as a figure. The cost is dominated by step 2, O(N<sup>3</sup>), which motivates the Nystr&ouml;m approximation.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">7</span>The Nystr&ouml;m approximation</h3>
+        <div class="figure slide"><img src="slides/extra-nystrom-geometry.png" alt="Slide: Understanding the Nyström Approximation" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Geometric view: project each kernel section onto the span of D landmark sections. The projected inner product gives k&#771;(x, y) = k<sub>L</sub>(x)<sup>&#8868;</sup>K<sub>L,L</sub><sup>&dagger;</sup>k<sub>L</sub>(y).</li>
+            <li>Result: K<sub>X,X</sub> &asymp; K<sub>X,L</sub>K<sub>L,L</sub><sup>&dagger;</sup>K<sub>L,X</sub>, a lower bound on the true kernel that is exact on the landmarks.</li>
+            <li>The 3D projection diagram is worth keeping. Consider merging this section with the next one.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">8</span>Scaling up with explicit features</h3>
+        <div class="figure slide"><img src="slides/extra-nystrom-features.png" alt="Slide: Scaling Up, Nyström Approximation" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Sample D &#8810; N landmarks (uniformly or by clustering) and form the explicit feature map &psi;(x) = &Lambda;<sub>L</sub><sup>&minus;1/2</sup>U<sub>L</sub><sup>&#8868;</sup>k<sub>L</sub>(x) &isin; &#x211D;<sup>D</sup>, so that K<sub>X,X</sub> &asymp; &Psi;(X)<sup>&#8868;</sup>&Psi;(X).</li>
+            <li>Benefit: no N &times; N inversion, and no need to solve for the Koopman-image coefficients. Convergence improves as D grows, and it is most effective when the kernel spectrum decays quickly (Gittens &amp; Mahoney, 2013).</li>
+        </ul></div>
+
+        <h3><span class="slide-number">9</span>Target matrices and rank truncation</h3>
+        <div class="figure slide"><img src="slides/extra-rank-truncation.png" alt="Slide: Target Matrices and Rank Truncation" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Goal: find D &times; s factors Z<sub>V</sub> and Z<sub>&#x1D4A6;V</sub> whose Gram matrices approximate M<sub>V</sub> and M<sub>&#x1D4A6;V</sub>.</li>
+            <li>The base subspace is direct (Z<sub>V</sub> = &Psi;(X)W<sub>V</sub>). The Koopman image comes from Tikhonov-regularized least squares, which needs only a D &times; D inverse.</li>
+            <li>Rank mismatch: the true Gram matrices are rank-deficient, but the targets are generically full rank. Truncate singular values below &tau;(D) &prop; D<sup>&minus;1/2</sup> so that spurious directions do not corrupt the angles.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">10</span>Approximate principal angles and vectors</h3>
+        <div class="figure slide"><img src="slides/extra-approx-angles.png" alt="Slide: Approximate Principal Angles and Vectors" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>Regularized R factors come from the truncated SVDs. The bases are never formed explicitly, and the cosine matrix comes from known quantities.</li>
+            <li>Algorithm 2 mirrors Algorithm 1. Headline cost: O(NDs + D<sup>3</sup>) against O(N<sup>3</sup>), which is linear in the dataset size when s &le; D &#8810; N.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">11</span>Validating the Nystr&ouml;m approximation</h3>
+        <div class="figure">
+            <div class="figure-row">
+                <img src="figures/nystrom_residuals.png" alt="Orthonormality residuals of the approximate bases versus number of Nyström features" loading="lazy">
+                <img src="figures/nystrom_sin_theta_max.png" alt="Invariance proximity along the pruning sequence for exact and approximate Kernel-SPV at several D" loading="lazy">
+            </div>
+            <div class="caption">Undamped Duffing oscillator, N = 5000 points in [&minus;2, 2]<sup>2</sup>, s = 200 random Wendland kernel sections. Left: orthonormality residuals of the approximate bases shrink steadily as D grows. Right: at D = 2000, the true angles along the approximate pruning sequence already match exact Kernel-SPV.</div>
+        </div>
+        <div class="guide"><ul>
+            <li>System: x<sub>1</sub><sup>+</sup> = x<sub>1</sub> + &Delta;t x<sub>2</sub>, x<sub>2</sub><sup>+</sup> = x<sub>2</sub> + &Delta;t(x<sub>1</sub> &minus; 3x<sub>1</sub><sup>3</sup>), with &Delta;t = 0.01.</li>
+            <li>Define the residuals &epsilon;<sub>V</sub> = &Vert;Q&#771;<sub>V</sub><sup>&#8868;</sup>Q&#771;<sub>V</sub> &minus; I&Vert;<sub>2</sub> (and the same for &#x1D4A6;V).</li>
+            <li>Key point: the pruning sequence is right even before the bases are numerically orthonormal.</li>
+        </ul></div>
+
+        <h3><span class="slide-number">12</span>Pruning improves eigenfunction accuracy</h3>
+        <div class="figure slide"><img src="slides/slide-26.png" alt="Slide: Pruning Improves Eigenfunction Accuracy" loading="lazy"></div>
+        <div class="guide"><ul>
+            <li>This is the teaser result, so state it briefly here: Approximate Kernel-SPV with D = 2000 prunes s = 200 to 5, and the relative 5-step eigenfunction error drops sharply on the same color scale.</li>
+            <li>You can delete the slide image, since the teaser already shows the two heatmaps.</li>
+            <li>If there's room, add a short summary or next-steps paragraph after this section.</li>
+        </ul></div>
+
+        <!-- ============================================================ bibtex -->
+        <h2 id="bibtex">BibTeX</h2>
+        <!-- TODO: add pages / DOI once the proceedings are out -->
+<pre class="bibtex">@inproceedings{shah2026kernelpruning,
+  title     = {Koopman Subspace Pruning in Reproducing Kernel Hilbert Spaces via Principal Vectors},
+  author    = {Shah, Dhruv and Cort{\'e}s, Jorge},
+  booktitle = {65th IEEE Conference on Decision and Control (CDC)},
+  year      = {2026}
+}</pre>
+
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            &copy; 2026 Dhruv Shah. Design adapted from <a href="https://nicklashansen.com">Nicklas Hansen</a>.
+        </div>
+    </div>
+
+</body>
+</html>
