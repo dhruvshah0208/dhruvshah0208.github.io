@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="stylesheet.css">
+    <script src="/analytics.js" defer></script>
 </head>
 <body>
 
@@ -23,7 +24,7 @@
                 <h1>Dhruv Shah</h1>
                 <div class="header-subtitle">Ph.D. Candidate, Contextual Robotics Institute, UC San Diego</div>
                 <div>
-                    <a class="btn" href="#contact">Email</a> /
+                    <a class="btn" href="#contact" data-track="email">Email</a> /
                     <a class="btn" href="https://scholar.google.com/citations?user=iPZ9gTYAAAAJ">Google Scholar</a> /
                     <a class="btn" href="https://github.com/dhruvshah0208">GitHub</a> /
                     <a class="btn" href="https://www.linkedin.com/in/dhruvshah0208/">LinkedIn</a> /
@@ -43,7 +44,7 @@
 
         <p>I started out in robust control of neural feedback loops, deriving stability certificates and controller synthesis methods for systems with neural networks in the loop. From there I moved to the Koopman approximation side, developing principal-vector methods that prune large dictionaries (including kernel dictionaries) down to accurate, nearly invariant subspaces.</p>
 
-        <p>More recently, I have turned these ideas toward generative modeling. Flow-based generative models transport noise to data along the trajectories of a learned dynamical system, and flow maps learn to jump directly between points on those trajectories, enabling generation in just a few steps. Because a flow map is itself the solution operator of a dynamical system, Koopman theory gives a natural way to structure it. Read more in <a class="kfm-link" href="#">Koopman Flow Maps</a>. </p>
+        <p>More recently, I have turned these ideas toward generative modeling. Flow-based generative models transport noise to data along the trajectories of a learned dynamical system, and flow maps learn to jump directly between points on those trajectories, enabling generation in just a few steps. Because a flow map is itself the solution operator of a dynamical system, Koopman theory gives a natural way to structure it. Read more in <a class="kfm-link" href="#" data-track="kfm-preprint">Koopman Flow Maps</a>. </p>
 
         <p>My current research focuses on applying these Koopman-inspired architectures to flow language models and world models, where the same structure could make few-step generation of text and of future states more accurate and efficient. More broadly, I am interested in bringing tools from dynamical systems and control to problems in generative AI and robotics, where structure can make learned models more accurate, interpretable, and efficient.</p>
 
@@ -53,9 +54,9 @@
         <h2>Publications and preprints</h2>
 
         <div class="entry highlight">
-            <a class="entry-media kfm-link" href="#" style="background-image: url('images/thumbs/kfm.png');"></a>
+            <a class="entry-media kfm-link" href="#" data-track="kfm-preprint" style="background-image: url('images/thumbs/kfm.png');"></a>
             <div class="entry-text">
-                <a class="entry-title kfm-link" href="#">Koopman Flow Maps: Mode Structure for Flow Map Matching</a><br>
+                <a class="entry-title kfm-link" href="#" data-track="kfm-preprint">Koopman Flow Maps: Mode Structure for Flow Map Matching</a><br>
                 <strong>Dhruv Shah</strong>, Jorge Cort&eacute;s<br>
                 <span class="status">In preparation</span><br>
                 <p>A Koopman-structured flow-map parametrization for few-step generation that beats its unstructured counterpart at every NFE on CIFAR-10 and CelebA-HQ.</p>
